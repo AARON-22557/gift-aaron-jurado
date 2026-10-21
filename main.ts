@@ -1,5 +1,4 @@
-let strip: neopixel.Strip = null
-strip = neopixel.create(DigitalPin.P0, 24, NeoPixelMode.RGB)
+let strip = neopixel.create(DigitalPin.P0, 24, NeoPixelMode.RGB)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 
 input.onGesture(Gesture.Shake, function () {
