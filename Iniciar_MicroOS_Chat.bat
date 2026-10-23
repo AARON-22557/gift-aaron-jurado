@@ -19,8 +19,8 @@ start "MicroOS Server" /min node server.js
 echo Esperando a que el servidor este listo...
 timeout /t 2 /nobreak > nul
 
-echo Abriendo la aplicacion en tu navegador...
-start http://localhost:3000
+echo Abriendo la aplicacion en modo ventana de App...
+start msedge --app=http://localhost:3000 2>nul || start chrome --app=http://localhost:3000 2>nul || start http://localhost:3000
 
 echo.
 echo ===================================================
