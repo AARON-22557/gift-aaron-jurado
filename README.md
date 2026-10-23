@@ -4,31 +4,22 @@
 
 ---
 
-## 🚀 Cómo Ejecutar la Aplicación Facilmente (Sin comandos)
+## 💻 Instalación como App de Escritorio Convencional (Recomendado)
 
-1. Extrae todo el contenido del archivo `.zip` en una carpeta de tu PC.
-2. Haz **doble clic** en el archivo **`Iniciar_MicroOS_Chat.bat`**.
-3. ¡Listo! Se instalarán dependencias automáticamente (si es la primera vez), se iniciará el servidor y se abrirá la aplicación en tu navegador web.
+Para tener la aplicación instalada en tu PC con su **propio acceso directo e icono en el Escritorio de Windows**:
+
+1. Descomprime el archivo `.zip` en cualquier carpeta.
+2. Haz **doble clic** en **`Instalar_MicroOS_Chat.bat`**.
+3. El instalador creará automáticamente la app y pondrá un acceso directo llamado **`MicroOS Chat`** en tu **Escritorio de Windows**.
+4. ¡Listo! A partir de ahora solo haz doble clic en el icono **`MicroOS Chat`** de tu escritorio para abrir la app cuando quieras.
 
 ---
 
-## 🛠️ Ejecución manual desde Consola / CMD (Opcional)
+## 🚀 Inicio Rápido Portable (Sin instalación)
 
-Si prefieres usar la consola de comandos:
-
-1. Abre la carpeta en la terminal o CMD.
-2. Instala las dependencias (solo la primera vez):
-   ```cmd
-   npm install
-   ```
-3. Inicia el servidor:
-   ```cmd
-   node server.js
-   ```
-4. Abre en tu navegador web:
-   ```
-   http://localhost:3000
-   ```
+Si prefieres no instalarla y solo ejecutarla:
+1. Haz doble clic en **`Iniciar_MicroOS_Chat.bat`**.
+2. La app se iniciará y abrirá automáticamente en tu navegador.
 
 ---
 
@@ -37,7 +28,7 @@ Si prefieres usar la consola de comandos:
 * **Sistema Operativo Virtual (MicroOS PC):**
   * Escritorio con iconos (*Chat por Código*, *Descargar App*, *Info MicroOS*).
   * Barra de tareas con reloj digital en tiempo real e indicador de estado de red.
-  * Ventanas flotantes que se pueden cerrar e interactuar.
+  * Ventanas flotantes interactiva.
 
 * **Chat por Código de Invitación (6 dígitos):**
   * **Crear sala:** Genera un código único de 6 dígitos (ej. `849201`). El usuario que la crea se convierte automáticamente en el **Jefe / Creador**.
@@ -50,6 +41,3 @@ Si prefieres usar la consola de comandos:
 
 * **Botones de Respuesta Rápida:**
   * Mensajes predefinidos para chat rápido (`👍 ¡Entendido!`, `👋 ¡Hola a todos!`, `⚠️ ¡Atención!`, `😂 Jajaja`).
-
-* **Soporte Multidispositivo en Red Local (LAN):**
-  * Varios ordenadores conectados a la misma red WiFi o local pueden chatear ingresando a la IP del servidor (ej. `http://192.168.1.50:3000`).
