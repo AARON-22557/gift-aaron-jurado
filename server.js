@@ -276,6 +276,6 @@ function broadcastUserList(roomCode) {
     });
 }
 
-server.listen(PORT, () => {
-    console.log(`MicroOS PC Chat Server running on http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`MicroOS PC Chat Server running on http://0.0.0.0:${PORT}`);
 });

@@ -34,27 +34,48 @@ const sanctionTimer = document.getElementById('sanction-timer');
 
 // Connect to WebSocket Server
 function initWebSocket() {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}`;
+    let wsUrl;
+    if (window.location.protocol === 'file:') {
+        wsUrl = 'ws://localhost:3000';
+    } else {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        wsUrl = `${protocol}//${window.location.host}`;
+    }
 
-    ws = new WebSocket(wsUrl);
+    try {
+        ws = new WebSocket(wsUrl);
 
-    ws.onopen = () => {
-        console.log('Connected to MicroOS PC Server');
-    };
+        ws.onopen = () => {
+            console.log('Connected to MicroOS PC Server');
+            if (modalError) modalError.textContent = '';
+        };
 
-    ws.onmessage = (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            handleServerPacket(data);
-        } catch (e) {
-            console.error('Error parsing packet:', e);
+        ws.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                handleServerPacket(data);
+            } catch (e) {
+                console.error('Error parsing packet:', e);
+            }
+        };
+
+        ws.onerror = () => {
+            if (modalError) {
+                modalError.textContent = '⚠️ Sin conexión al servidor. Recuerda ejecutar "node server.js" en tu consola.';
+            }
+        };
+
+        ws.onclose = () => {
+            console.log('Disconnected from server');
+            if (modalError) {
+                modalError.textContent = '⚠️ Servidor desconectado. Ejecuta "node server.js" e intenta de nuevo.';
+            }
+        };
+    } catch (err) {
+        if (modalError) {
+            modalError.textContent = '⚠️ Error al intentar conectar al servidor.';
         }
-    };
-
-    ws.onclose = () => {
-        console.log('Disconnected from server');
-    };
+    }
 }
 
 function handleServerPacket(packet) {
@@ -189,6 +210,8 @@ btnJoinRoom.addEventListener('click', () => {
             type: 'JOIN_ROOM',
             payload: { code, userName: name }
         }));
+    } else {
+        modalError.textContent = '⚠️ No hay conexión con el servidor. Debes ejecutar "node server.js" en la consola.';
     }
 });
 
@@ -199,6 +222,8 @@ btnCreateRoom.addEventListener('click', () => {
             type: 'CREATE_ROOM',
             payload: { userName: name }
         }));
+    } else {
+        modalError.textContent = '⚠️ No hay conexión con el servidor. Debes ejecutar "node server.js" en la consola.';
     }
 });
 
