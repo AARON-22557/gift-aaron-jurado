@@ -7,6 +7,7 @@
  * - Chat App with predefined quick messages, custom emoji icons, and text broadcasting
  * - Boss/Admin app to apply temporary bans (10s, 30s, 60s, 120s) or unban target users
  * - Automatic temporary sanction countdown and UI lock for banned users
+ * - "DESCARGAR APP" option in menu
  */
 
 enum OSState {
@@ -15,7 +16,8 @@ enum OSState {
     MainMenu,
     ChatApp,
     AdminApp,
-    StatusApp
+    StatusApp,
+    DownloadApp
 }
 
 // OS State Variables
@@ -28,7 +30,7 @@ let isBanned: boolean = false
 let banRemainingSeconds: number = 0
 
 // Menu navigation
-const MENU_ITEMS: string[] = ["CHAT", "ADMIN", "INFO", "CODE"]
+const MENU_ITEMS: string[] = ["CHAT", "ADMIN", "DESCARGAR APP", "INFO", "CODE"]
 let selectedMenuItem: number = 0
 
 // Chat options
@@ -155,6 +157,9 @@ function renderCurrentScreen() {
                 basic.showString("U" + targetUserId + ":" + BAN_DURATIONS[selectedBanDurationIndex] + "s")
             }
             break
+        case OSState.DownloadApp:
+            basic.showString("DESCARGAR APP - MicroOS_Chat_App.zip")
+            break
         case OSState.StatusApp:
             basic.showString("ID:" + myUserId + (isBoss ? " BOSS" : " USER"))
             break
@@ -190,6 +195,9 @@ input.onButtonPressed(Button.A, function () {
             isBoss = !isBoss
             renderCurrentScreen()
         }
+    } else if (currentState === OSState.DownloadApp) {
+        currentState = OSState.MainMenu
+        renderCurrentScreen()
     } else if (currentState === OSState.StatusApp) {
         isBoss = !isBoss
         renderCurrentScreen()
@@ -213,13 +221,16 @@ input.onButtonPressed(Button.B, function () {
         currentState = OSState.MainMenu
         renderCurrentScreen()
     } else if (currentState === OSState.MainMenu) {
-        if (selectedMenuItem === 0) {
+        let item = MENU_ITEMS[selectedMenuItem]
+        if (item === "CHAT") {
             currentState = OSState.ChatApp
-        } else if (selectedMenuItem === 1) {
+        } else if (item === "ADMIN") {
             currentState = OSState.AdminApp
-        } else if (selectedMenuItem === 2) {
+        } else if (item === "DESCARGAR APP") {
+            currentState = OSState.DownloadApp
+        } else if (item === "INFO") {
             currentState = OSState.StatusApp
-        } else if (selectedMenuItem === 3) {
+        } else if (item === "CODE") {
             currentState = OSState.CodeEntry
         }
         renderCurrentScreen()
@@ -238,6 +249,9 @@ input.onButtonPressed(Button.B, function () {
         } else {
             basic.showString("HOLD A+B FOR BOSS")
         }
+    } else if (currentState === OSState.DownloadApp) {
+        currentState = OSState.MainMenu
+        renderCurrentScreen()
     } else if (currentState === OSState.StatusApp) {
         currentState = OSState.MainMenu
         renderCurrentScreen()
